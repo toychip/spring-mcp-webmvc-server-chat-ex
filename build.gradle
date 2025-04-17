@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.4.4'
+    id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url 'https://repo.spring.io/milestone' }
+    maven { url 'https://repo.spring.io/snapshot' }
+    maven {
+        name = 'Central Portal Snapshots'
+        url = 'https://central.sonatype.com/repository/maven-snapshots/'
+    }
+}
+
+dependencyManagement {
+    imports {
+        // BOM 업데이트: Spring AI BOM 1.0.0-M7 사용
+        mavenBom "org.springframework.ai:spring-ai-bom:1.0.0-M7"
+    }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.projectreactor:reactor-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // MCP 클라이언트 스타터 의존성 (자동 구성 의존성은 필요에 따라 추가)
+    implementation 'org.springframework.ai:spring-ai-starter-mcp-server'
+
+    // 만약 자동 구성을 사용하고 싶다면 다음 의존성도 추가할 수 있습니다.
+    implementation 'org.springframework.ai:spring-ai-autoconfigure-mcp-server'
+
+    // MCP SDK 의존성은 별도로 버전 명시 (최신 개선 사항: 0.9.0)
+    implementation 'io.modelcontextprotocol.sdk:mcp:0.9.0'
+    implementation 'io.modelcontextprotocol.sdk:mcp-spring-webmvc:0.9.0'
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'io.modelcontextprotocol.sdk:mcp:0.9.0'
+        force 'io.modelcontextprotocol.sdk:mcp-spring-webmvc:0.9.0'
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
