@@ -1,6 +1,7 @@
 package com.example.mcpservermvc.config;
 
 import com.example.mcpservermvc.tool.AuthorRepository;
+import com.example.mcpservermvc.tool.FutureWeatherTool;
 import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.tool.method.MethodToolCallbackProvider;
 import org.springframework.context.annotation.Bean;
@@ -14,4 +15,8 @@ public class ToolCallbackProviderConfig {
         return MethodToolCallbackProvider.builder().toolObjects(authorRepository).build();
     }
 
+    @Bean
+    public ToolCallbackProvider getFutureWeatherProvider(FutureWeatherTool futureWeatherTool) {
+        return MethodToolCallbackProvider.builder().toolObjects(futureWeatherTool).build();
+    }
 }

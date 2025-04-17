@@ -1,5 +1,6 @@
 package com.example.mcpservermvc.tool;
 
+import com.example.mcpservermvc.tool.dto.Author;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.stereotype.Component;
 
