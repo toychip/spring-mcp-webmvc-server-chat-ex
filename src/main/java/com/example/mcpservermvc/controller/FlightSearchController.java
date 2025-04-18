@@ -1,6 +1,6 @@
 package com.example.mcpservermvc.controller;
 
-import com.example.mcpservermvc.tool.FlightSearchService;
+import com.example.mcpservermvc.tool.FlightSearchTool;
 import com.example.mcpservermvc.tool.dto.FlightOfferResponse.DailyOffers;
 import com.example.mcpservermvc.tool.dto.FlightRangeRequest;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FlightSearchController {
 
-    private final FlightSearchService flightSearchService;
+    private final FlightSearchTool flightSearchTool;
 
     @GetMapping("/range")
     public List<DailyOffers> searchRange(
@@ -25,11 +25,11 @@ public class FlightSearchController {
             @RequestParam String destination,
             @RequestParam String startDate,
             @RequestParam String endDate,
-            @RequestParam(defaultValue = "1") int adults,
-            @RequestParam(defaultValue = "3") int topN) {
+            @RequestParam(defaultValue = "1") int adults
+    ) {
 
-        return flightSearchService.searchRange(new FlightRangeRequest(
-                origin, destination, startDate, endDate, adults, topN));
+        return flightSearchTool.searchRange(new FlightRangeRequest(
+                origin, destination, startDate, endDate, adults));
     }
 
 }

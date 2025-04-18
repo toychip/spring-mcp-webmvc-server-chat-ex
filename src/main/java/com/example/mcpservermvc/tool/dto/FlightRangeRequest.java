@@ -1,10 +1,20 @@
 package com.example.mcpservermvc.tool.dto;
 
+import org.springframework.ai.tool.annotation.ToolParam;
+
 public record FlightRangeRequest(
-        String origin,          // ICN
-        String destination,     // JFK
-        String startDate,       // 2025‑12‑20
-        String endDate,         // 2025‑12‑30
-        int    adults,
-        int    topN             // 날짜별 최저가 N개 (default 3)
+        @ToolParam(description = "출발 공항 IATA 코드 (예: ICN)", required = true)
+        String origin,
+
+        @ToolParam(description = "도착 공항 IATA 코드 (예: JFK)", required = true)
+        String destination,
+
+        @ToolParam(description = "조회 시작 날짜 (YYYY‑MM‑DD)", required = true)
+        String startDate,
+
+        @ToolParam(description = "조회 종료 날짜 (YYYY‑MM‑DD)", required = true)
+        String endDate,
+
+        @ToolParam(description = "성인 탑승객 수", required = true)
+        int adults
 ) {}

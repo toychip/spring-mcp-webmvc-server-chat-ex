@@ -31,7 +31,7 @@ public class FutureWeatherTool {
             name = "getFutureWeatherDaily",
             description = """
                     Return a list of daily mean temperature (°C) and precipitation (mm)
-                    for each day between startDate and endDate (≤ 2050‑01‑01) at a given
+                    for each day between startDate and endDate (≤ 2050‑01‑01) at a given
                     latitude/longitude.
             """,
             returnDirect = true
