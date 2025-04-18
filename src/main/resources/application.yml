@@ -17,3 +17,24 @@ logging:
     org:
       springframework:
         ai: DEBUG
+
+amadeus:
+  client-id: ${AMADEUS_CLIENT_ID}
+  client-secret: ${AMADEUS_CLIENT_SECRET}
+
+resilience4j:
+  ratelimiter:
+    instances:
+      amadeus:
+        limit-for-period: 8
+        limit-refresh-period: 1s
+        timeout-duration: 30s          # 토큰 대기시간 늘리기
+        subscribe-for-events: true
+        register-health-indicator: true
+  retry:
+    instances:
+      amadeus:
+        max-attempts: 3
+        wait-duration: 1s
+        retry-exceptions:
+          - feign.FeignException.TooManyRequests     # 429
