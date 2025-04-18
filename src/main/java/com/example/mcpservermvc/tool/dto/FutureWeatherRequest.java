@@ -12,6 +12,9 @@ public record FutureWeatherRequest(
         @ToolParam(description = "경도 (예: 126.98)", required = true)
         double longitude,
 
-        @ToolParam(description = "조회할 날짜 (YYYY-MM-DD)", required = true)
-        String date
+        @ToolParam(description = "조회 시작 날짜 (YYYY-MM-DD)", required = true)
+        String startDate,
+
+        @ToolParam(description = "조회 종료 날짜 (YYYY-MM-DD)", required = true)
+        String endDate
 ) {}
